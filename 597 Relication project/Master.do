@@ -1,0 +1,167 @@
+/*==================================================================================================
+
+** Making Bricks from Straw: Resources and Productivity in Health Care
+
+	** This is the master code to replicate all of the tables and figures in the paper
+
+	Index:		1. Install Programs
+				2. Set Path Directories
+				3. Set Options for Replication
+				4. Execute Programs
+		
+		
+* Last run on STATA 17.0
+
+===================================================================================================*/
+
+
+
+/*------------------------------
+	Preamble
+ -------------------------------*/
+ 
+	clear all
+	set more off
+	set seed 12345
+	
+
+	
+/*===============================================================================================
+                                  1. Install Programs 
+								  
+							[Recommended: Run for the first time.]
+===============================================================================================*/
+
+*Options for program installation 
+
+	loc install_ado = 1 // Switch to zero if you do not want to run the ado installation codes; 1 otherwise
+
+		if `install_ado' == 1 {
+			
+			foreach ado in dm88_1 grc1leg2 {
+				cap ado uninstall `ado'	
+			}
+			
+			foreach ado in binscatter cdfplot cibar coefplot combomarginsplot estout ftools kdens moremata mplotoffset  qreg2 qrprocess ranktest swindex twopm {
+				ssc install `ado', replace			
+			}
+ 
+			net install dm88_1.pkg, from("http://www.stata-journal.com/software/sj5-4")  replace		
+			net install grc1leg2, from("http://digital.cgdev.org/doc/stata/MO/Misc") replace
+
+			* Packages for ivreghdfe
+				foreach ado in ftools reghdfe ivreg2 ivreghdfe {
+					cap ado uninstall `ado'
+				}
+				net install ftools, from("http://fmwww.bc.edu/RePEc/bocode/f/") replace   
+				net install reghdfe, from("http://fmwww.bc.edu/RePEc/bocode/r") replace 
+				ssc install ivreg2, replace
+				net install ivreghdfe, from("http://fmwww.bc.edu/RePEc/bocode/i") replace 
+			
+		}		
+		
+		
+/*===============================================================================================
+                                  2. Set Path Directories
+===============================================================================================*/
+
+*------------------------
+* MANUAL INPUT REQUIRED
+*------------------------
+
+	* Manually set path for following two directories
+		
+		*DATA FOLDER :   Contains raw data and do files to clean them
+			gl db "/Users/..."
+		
+		
+		*ANALYSIS/REPLICATION FOLDER: Contains analysis data, analysis do files and output files
+			gl replication_folder "/Users/..."	
+
+	
+	//DO NOT CHANGE THE FOLLOWING : Automatically set macros
+	
+		*-------------------------------------------*	
+		*Macros related to Data Folder
+		*-------------------------------------------*
+				
+			*Do files
+				gl db_do "${db}/Do_Files"		//do files to clean raw data			
+			
+			*Raw files
+				gl db_Raw "${db}/Data_Files/0_Raw"  //raw data files
+			
+			*Clean files
+				gl db_Clean "${db}/Data_Files/1_Clean" //clean data files
+
+		*-------------------------------------------*	
+		*Macros related to Analysis / Replication Folder
+		*-------------------------------------------*
+		
+		gl replication_do "${replication_folder}/_do"		// do files used in analysis
+		gl data "${replication_folder}/_dta"				// data files processed for analysis
+		gl out "${replication_folder}/_out"					// results 
+		
+				
+			
+	
+/*===============================================================================================
+                                  3. Set Options for Replication
+===============================================================================================*/
+	
+	*Recommended: Maintain the following run sequence
+	
+
+		loc clean	=	1					// Cleans Raw data files. Switch to zero to disable cleaning raw data 
+
+		loc prep 	=	1					// Prepares files for analysis. Switch to zero to disable.
+
+		loc replicate_analysis	= 1			// Replicates analysis. Switch to zero to disable.
+
+	
+
+	
+/*===============================================================================================
+                                  4. Executing Programs
+===============================================================================================*/
+
+
+/*----------------------------------------
+	Clean raw data (This step is optional)
+----------------------------------------*/
+
+	*This will clean raw files
+
+		if `clean'== 1 {
+			
+
+			do "${db_do}/clean_raw_files.do"	
+		}
+	
+	
+/*----------------------------------------
+	Create analysis files 
+----------------------------------------*/
+
+	*This will create analysis files required for analysis
+	
+		if `prep'==1 {			
+			
+		*Note: The do file will prepare and save the files in folder: "/_dta"
+								
+			do "${replication_do}/_1_dataprep.do"				
+						
+		}
+		
+		
+/*----------------------------------------
+	Run analysis
+----------------------------------------*/
+
+	* This will process files, run analysis and generate tables and figures
+
+		if `replicate_analysis' == 1 {
+			
+			do "${replication_do}/_2_analysis.do"
+		}
+		
