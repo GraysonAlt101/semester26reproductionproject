@@ -72,11 +72,10 @@
 	* Manually set path for following two directories
 		
 		*DATA FOLDER :   Contains raw data and do files to clean them
-			gl db "/Users/..."
-		
+			gl db "$data"
 		
 		*ANALYSIS/REPLICATION FOLDER: Contains analysis data, analysis do files and output files
-			gl replication_folder "/Users/..."	
+			gl replication_folder "$logs"
 
 	
 	//DO NOT CHANGE THE FOLLOWING : Automatically set macros

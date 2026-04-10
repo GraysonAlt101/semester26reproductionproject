@@ -1,0 +1,29 @@
+if `"`c(username)'"' == "grays" {
+	
+		global	data	"C:\Users\grays\Documents\GitHub\semester26reproductionproject\597 Relication project"
+		global  logs    "C:\Users\grays\Documents\GitHub\semester26reproductionproject\597 Relication project\Replication"	
+	}
+
+
+
+	if `"`c(username)'"' == "ual-laptop" {
+		global	data  "C:\Users\ual-laptop\Desktop\GitHub Folder\semester26reproductionproject\597 Relication project"
+		global 	logs  "C:\Users\ual-laptop\Desktop\GitHub Folder\semester26reproductionproject\597 Relication project\Replication"
+	
+		
+		
+	}
+
+		if `"`c(username)'"' == "timleavy" {
+		global	code	"C:\Users\timleavy\Desktop\GitFolder\semester26\assignments"
+		global	data	"C:\Users\timleavy\Desktop\GitFolder\semester26\data"
+		global 	logs	"C:\Users\timleavy\Desktop\GitFolder\semester26\logs"
+		global 	graphs	"C:\Users\timleavy\Desktop\GitFolder\semester26\graphs"
+		
+		
+		
+	if `"`c(username)'"' == "ual-laptop" {
+    global data 		"C:\Users\ual-laptop\OneDrive\Documents\GitHub\INFO_521\semester26reproductionproject\597 Relication project"
+	global logs  		"C:\Users\ual-laptop\OneDrive\Documents\GitHub\INFO_521\semester26reproductionproject\597 Relication project\Replication"
+	}
+
