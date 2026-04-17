@@ -17,7 +17,7 @@ if "`c(username)'" == "timleavy" {
 }
 
 if "`c(username)'" == "ual-laptop" {
-    global data "C:\Users\ual-laptop\OneDrive\Documents\GitHub\INFO_521\semester26reproductionproject\597 Relication project"
-    global logs "C:\Users\ual-laptop\OneDrive\Documents\GitHub\INFO_521\semester26reproductionproject\597 Relication project\Replication"
+    global data "C:\Users\ual-laptop\OneDrive\Documents\GitHub\semester26reproductionproject\597 Relication project"
+    global logs "C:\Users\ual-laptop\OneDrive\Documents\GitHub\semester26reproductionproject\597 Relication project\Replication"
 }
 
